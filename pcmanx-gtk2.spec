@@ -36,18 +36,11 @@ make install-strip DESTDIR=$RPM_BUILD_ROOT
 mkdir -p $RPM_BUILD_ROOT%{_iconsdir}
 install -m 644 $RPM_BUILD_ROOT%{_datadir}/pixmaps/pcmanx.png $RPM_BUILD_ROOT%{_iconsdir}/pcmanx.png
 
-mkdir -p $RPM_BUILD_ROOT%{_datadir}/applications
-cat > $RPM_BUILD_ROOT%{_datadir}/applications/mandriva-%{name}.desktop << EOF
-[Desktop Entry]
-Encoding=UTF-8
-Name=PCManX
-Comment=Friendly BBS Client
-Exec=%_bindir/pcmanx
-Icon=pcmanx.png
-Terminal=false
-Type=Application
-Categories=X-MandrivaLinux-Internet-Other;Network;
-EOF
+desktop-file-install --vendor =" " \
+	--add-category = "X-MandrivaLinux-Internet-Other" \
+	--remove-category = "Application" \
+	--dir $RPM_BUILD_ROOT%{_datadir}/applications/ \
+	$RPM_BUILD_ROOT%{_datadir}/applications/*
 
 %find_lang pcmanx
 
@@ -65,7 +58,7 @@ EOF
 %{_iconsdir}/pcmanx.png
 %{_datadir}/pcmanx/*
 %{_datadir}/pixmaps/pcmanx.png
-%{_datadir}/applications/*
+%{_datadir}/applications/*.desktop
 
 %clean
 rm -rf %{buildroot}
