@@ -1,5 +1,5 @@
 %define version 0.3.5
-%define release %mkrel 3
+%define release %mkrel 4
 
 Summary:   	User-friendly telnet client designed for BBS browsing
 Name:      	pcmanx-gtk2
@@ -24,7 +24,7 @@ browsing with the ability to process double-byte characters.
 %prep
 
 %setup
-%configure --disable-shared
+%configure --disable-static
 
 %build
 make
@@ -35,19 +35,6 @@ make install-strip DESTDIR=$RPM_BUILD_ROOT
 # icon
 mkdir -p $RPM_BUILD_ROOT%{_iconsdir}
 install -m 644 $RPM_BUILD_ROOT%{_datadir}/pixmaps/pcmanx.png $RPM_BUILD_ROOT%{_iconsdir}/pcmanx.png
-
-# menu
-mkdir -p $RPM_BUILD_ROOT%{_menudir}
-cat > $RPM_BUILD_ROOT%{_menudir}/%{name} << _EOF_
-?package(%{name}): \
- icon="pcmanx.png" \
- title="PCManX" \
- longtitle="Friendly BBS Client" \
- needs="x11" \
- section="Internet/Other" \
- command="%{_bindir}/pcmanx" \
- xdg="true"
-_EOF_
 
 mkdir -p $RPM_BUILD_ROOT%{_datadir}/applications
 cat > $RPM_BUILD_ROOT%{_datadir}/applications/mandriva-%{name}.desktop << EOF
@@ -62,6 +49,7 @@ Type=Application
 Categories=X-MandrivaLinux-Internet-Other;Network;
 EOF
 
+%find_lang pcmanx
 
 %post
 %update_menus
@@ -69,7 +57,7 @@ EOF
 %postun
 %clean_menus
 
-%files
+%files -f pcmanx.lang
 %defattr(-,root,root)
 %doc AUTHORS COPYING ChangeLog README
 %{_bindir}/pcmanx
@@ -78,11 +66,6 @@ EOF
 %{_datadir}/pcmanx/*
 %{_datadir}/pixmaps/pcmanx.png
 %{_datadir}/applications/*
-%{_datadir}/locale/zh_TW/LC_MESSAGES/pcmanx.mo
-%{_datadir}/locale/zh_CN/LC_MESSAGES/pcmanx.mo
-%{_menudir}/%{name}
 
 %clean
 rm -rf %{buildroot}
-
-
