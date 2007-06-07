@@ -37,9 +37,9 @@ make install-strip DESTDIR=$RPM_BUILD_ROOT
 mkdir -p $RPM_BUILD_ROOT%{_iconsdir}
 install -m 644 $RPM_BUILD_ROOT%{_datadir}/pixmaps/pcmanx.png $RPM_BUILD_ROOT%{_iconsdir}/pcmanx.png
 
-desktop-file-install --vendor =" " \
-	--add-category = "X-MandrivaLinux-Internet-Other" \
-	--remove-category = "Application" \
+desktop-file-install --vendor=" " \
+	--add-category="X-MandrivaLinux-Internet-Other" \
+	--remove-category="Application" \
 	--dir $RPM_BUILD_ROOT%{_datadir}/applications/ \
 	$RPM_BUILD_ROOT%{_datadir}/applications/*
 
