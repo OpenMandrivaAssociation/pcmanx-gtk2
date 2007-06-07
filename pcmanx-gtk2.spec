@@ -13,6 +13,7 @@ BuildRoot:	%{_tmppath}/%{name}-%{version}-%{release}-root
 BuildRequires:	gtk2-devel
 BuildRequires:	X11-devel
 BuildRequires:	intltool
+Provides:	pcmanx = %{version}-%{release}
 
 %description
 An easy-to-use telnet client mainly targets BBS users.
