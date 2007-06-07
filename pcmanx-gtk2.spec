@@ -8,6 +8,7 @@ Release:   	%{release}
 License: 	GPL
 Group:    	Networking/Other
 Source0:	%{name}-%{version}.tar.gz
+Patch1:		pcmanx-gtk2-0.3.5-desktop-file.patch
 Url:       	http://pcmanx.csie.net/
 BuildRoot:	%{_tmppath}/%{name}-%{version}-%{release}-root
 BuildRequires:	gtk2-devel desktop-file-utils
@@ -24,10 +25,11 @@ browsing with the ability to process double-byte characters.
 
 %prep
 
-%setup
-%configure --disable-static
+%setup -q
+%patch1 -p0
 
 %build
+%configure --disable-static
 make
 
 %install
