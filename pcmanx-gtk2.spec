@@ -10,7 +10,7 @@ Group:    	Networking/Other
 Source0:	%{name}-%{version}.tar.gz
 Url:       	http://pcmanx.csie.net/
 BuildRoot:	%{_tmppath}/%{name}-%{version}-%{release}-root
-BuildRequires:	gtk2-devel
+BuildRequires:	gtk2-devel desktop-file-utils
 BuildRequires:	X11-devel
 BuildRequires:	intltool
 Provides:	pcmanx = %{version}-%{release}
