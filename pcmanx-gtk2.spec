@@ -1,5 +1,5 @@
 %define version 0.3.5
-%define release %mkrel 4
+%define release %mkrel 5
 
 Summary:   	User-friendly telnet client designed for BBS browsing
 Name:      	pcmanx-gtk2
@@ -15,6 +15,7 @@ BuildRequires:	gtk2-devel desktop-file-utils
 BuildRequires:	X11-devel
 BuildRequires:	intltool
 Provides:	pcmanx = %{version}-%{release}
+Obsoletes:	pcmanx-pure-gtk2
 
 %description
 An easy-to-use telnet client mainly targets BBS users.
@@ -29,7 +30,7 @@ browsing with the ability to process double-byte characters.
 %patch1 -p0
 
 %build
-%configure --disable-static
+%configure2_5x --disable-static
 make
 
 %install
