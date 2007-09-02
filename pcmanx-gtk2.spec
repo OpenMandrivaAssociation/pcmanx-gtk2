@@ -41,6 +41,7 @@ install -m 644 $RPM_BUILD_ROOT%{_datadir}/pixmaps/pcmanx.png $RPM_BUILD_ROOT%{_i
 desktop-file-install --vendor="" \
 	--remove-category="Application" \
 	--add-category="RemoteAccess" \
+	--remove-key='Encoding' \
 	--dir $RPM_BUILD_ROOT%{_datadir}/applications/ \
 	$RPM_BUILD_ROOT%{_datadir}/applications/*
 
