@@ -1,5 +1,5 @@
-%define version 0.3.5
-%define release %mkrel 5
+%define version 0.3.6
+%define release %mkrel 1
 
 Summary:   	User-friendly telnet client designed for BBS browsing
 Name:      	pcmanx-gtk2
@@ -7,8 +7,7 @@ Version:   	%{version}
 Release:   	%{release}
 License: 	GPL
 Group:    	Networking/Other
-Source0:	%{name}-%{version}.tar.gz
-Patch1:		pcmanx-gtk2-0.3.5-desktop-file.patch
+Source0:	http://pcmanx.csie.net/release/%{name}-%{version}.tar.bz2
 Url:       	http://pcmanx.csie.net/
 BuildRoot:	%{_tmppath}/%{name}-%{version}-%{release}-root
 BuildRequires:	gtk2-devel desktop-file-utils
@@ -27,7 +26,6 @@ browsing with the ability to process double-byte characters.
 %prep
 
 %setup -q
-%patch1 -p0
 
 %build
 %configure2_5x --disable-static
