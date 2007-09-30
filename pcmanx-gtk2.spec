@@ -1,5 +1,5 @@
 %define version 0.3.6
-%define release %mkrel 1
+%define release %mkrel 2
 
 Summary:   	User-friendly telnet client designed for BBS browsing
 Name:      	pcmanx-gtk2
@@ -13,6 +13,7 @@ BuildRoot:	%{_tmppath}/%{name}-%{version}-%{release}-root
 BuildRequires:	gtk2-devel desktop-file-utils
 BuildRequires:	X11-devel
 BuildRequires:	intltool
+BuildRequires:	ImageMagick
 Provides:	pcmanx = %{version}-%{release}
 Obsoletes:	pcmanx-pure-gtk2
 
@@ -35,8 +36,10 @@ make
 make install-strip DESTDIR=$RPM_BUILD_ROOT
 
 # icon
-mkdir -p $RPM_BUILD_ROOT%{_iconsdir}
-install -m 644 $RPM_BUILD_ROOT%{_datadir}/pixmaps/pcmanx.png $RPM_BUILD_ROOT%{_iconsdir}/pcmanx.png
+mkdir -p $RPM_BUILD_ROOT{%{_iconsdir},%{_liconsdir},%{_miconsdir}}
+install -m 644 data/pcmanx.png $RPM_BUILD_ROOT%{_liconsdir}/pcmanx.png
+convert -resize 32x32 data/pcmanx.png $RPM_BUILD_ROOT%{_iconsdir}/pcmanx.png
+convert -resize 16x16 data/pcmanx.png $RPM_BUILD_ROOT%{_miconsdir}/pcmanx.png
 
 desktop-file-install --vendor="" \
 	--remove-category="Application" \
@@ -44,6 +47,9 @@ desktop-file-install --vendor="" \
 	--remove-key='Encoding' \
 	--dir $RPM_BUILD_ROOT%{_datadir}/applications/ \
 	$RPM_BUILD_ROOT%{_datadir}/applications/*
+
+# fwang: remove devel files
+rm -f %buildroot%_libdir/{*.la,*.so}
 
 %find_lang pcmanx
 
@@ -57,9 +63,11 @@ desktop-file-install --vendor="" \
 %defattr(-,root,root)
 %doc AUTHORS COPYING ChangeLog README
 %{_bindir}/pcmanx
-%{_libdir}/libpcmanx_core.*
+%{_libdir}/libpcmanx_core.so.*
 %{_iconsdir}/pcmanx.png
-%{_datadir}/pcmanx/*
+%{_liconsdir}/pcmanx.png
+%{_miconsdir}/pcmanx.png
+%{_datadir}/pcmanx
 %{_datadir}/pixmaps/pcmanx.png
 %{_datadir}/applications/*.desktop
 
