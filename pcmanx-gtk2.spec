@@ -9,7 +9,6 @@ License: 	GPL
 Group:    	Networking/Other
 Source0:	http://pcmanx.csie.net/release/%{name}-%{version}.tar.bz2
 Url:       	http://pcmanx.csie.net/
-BuildRoot:	%{_tmppath}/%{name}-%{version}-%{release}-root
 BuildRequires:	gtk2-devel desktop-file-utils
 BuildRequires:	X11-devel
 BuildRequires:	intltool
