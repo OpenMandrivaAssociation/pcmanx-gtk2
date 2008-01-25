@@ -1,11 +1,11 @@
 %define version 0.3.6
-%define release %mkrel 2
+%define release %mkrel 3
 
 Summary:   	User-friendly telnet client designed for BBS browsing
 Name:      	pcmanx-gtk2
 Version:   	%{version}
 Release:   	%{release}
-License: 	GPL
+License: 	GPLv2+
 Group:    	Networking/Other
 Source0:	http://pcmanx.csie.net/release/%{name}-%{version}.tar.bz2
 Url:       	http://pcmanx.csie.net/
