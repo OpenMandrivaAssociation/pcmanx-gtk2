@@ -1,5 +1,7 @@
-%define version 0.3.6
-%define release %mkrel 3
+%define version 0.3.7
+%define release %mkrel 1
+%define firefox_epoch %(rpm -q --queryformat %{EPOCH} mozilla-firefox)
+%define firefox_version %(rpm -q --queryformat %{VERSION} mozilla-firefox)
 
 Summary:   	User-friendly telnet client designed for BBS browsing
 Name:      	pcmanx-gtk2
@@ -14,6 +16,7 @@ BuildRequires:	gtk2-devel desktop-file-utils
 BuildRequires:	X11-devel
 BuildRequires:	intltool
 BuildRequires:	ImageMagick
+BuildRequires:	mozilla-firefox-devel
 Provides:	pcmanx = %{version}-%{release}
 Obsoletes:	pcmanx-pure-gtk2
 
@@ -24,13 +27,21 @@ client formerly designed for MS Windows only.
 It aimed to be an easy-to-use yet full-featured telnet client facilitating BBS
 browsing with the ability to process double-byte characters.
 
-%prep
+%package -n mozilla-firefox-ext-pcmanx
+Group:		Networking/Other
+Summary:	pcmanx-gtk2 Mozillia Firefox plugin
+Requires:	mozilla-firefox = %{firefox_epoch}:%{firefox_version}
+Requires:	%name = %version
 
+%description -n mozilla-firefox-ext-pcmanx
+This package contains pcmanx-gtk2 plugin for Mozilla Firefox.
+
+%prep
 %setup -q
 
 %build
-%configure2_5x --disable-static
-make
+%configure2_5x --disable-static --enable-plugin
+%make
 
 %install
 make install-strip DESTDIR=$RPM_BUILD_ROOT
@@ -70,6 +81,11 @@ rm -f %buildroot%_libdir/{*.la,*.so}
 %{_datadir}/pcmanx
 %{_datadir}/pixmaps/pcmanx.png
 %{_datadir}/applications/*.desktop
+
+%files -n mozilla-firefox-ext-pcmanx
+%defattr(-,root,root)
+%{_libdir}/firefox-%{firefox_version}/components/*
+%{_libdir}/firefox-%{firefox_version}/plugins/*.so
 
 %clean
 rm -rf %{buildroot}
