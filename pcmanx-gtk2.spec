@@ -1,5 +1,5 @@
 %define version 0.3.7
-%define release %mkrel 1
+%define release %mkrel 2
 %define firefox_epoch %(rpm -q --queryformat %{EPOCH} mozilla-firefox)
 %define firefox_version %(rpm -q --queryformat %{VERSION} mozilla-firefox)
 
