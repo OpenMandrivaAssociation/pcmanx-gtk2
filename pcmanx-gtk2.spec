@@ -16,7 +16,7 @@ Url:       	http://pcmanx.csie.net/
 BuildRoot:	%{_tmppath}/%{name}-%{version}-%{release}-root
 BuildRequires:	gtk2-devel desktop-file-utils
 BuildRequires:	X11-devel
-BuildRequires:	intltool
+BuildRequires:	intltool gettext-devel
 BuildRequires:	ImageMagick
 BuildRequires:	mozilla-firefox-devel
 Provides:	pcmanx = %{version}-%{release}
