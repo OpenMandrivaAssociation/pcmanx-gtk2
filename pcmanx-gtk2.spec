@@ -1,5 +1,6 @@
 %define version 0.3.7
-%define release %mkrel 4
+%define svnrel 416
+%define release %mkrel 4.%svnrel.1
 %define firefox_epoch %(rpm -q --queryformat %{EPOCH} mozilla-firefox)
 %define firefox_version %(rpm -q --queryformat %{VERSION} mozilla-firefox)
 
@@ -9,7 +10,8 @@ Version:   	%{version}
 Release:   	%{release}
 License: 	GPLv2+
 Group:    	Networking/Other
-Source0:	http://pcmanx.csie.net/release/%{name}-%{version}.tar.bz2
+Source0:	http://pcmanx.csie.net/release/%{name}-r%{svnrel}.tar.bz2
+Patch0:		pcmanx-gtk2-0.3.7-fix-underlink.patch
 Url:       	http://pcmanx.csie.net/
 BuildRoot:	%{_tmppath}/%{name}-%{version}-%{release}-root
 BuildRequires:	gtk2-devel desktop-file-utils
@@ -37,9 +39,11 @@ Requires:	%name = %version
 This package contains pcmanx-gtk2 plugin for Mozilla Firefox.
 
 %prep
-%setup -q
+%setup -q -n %name
+%patch0 -p0
 
 %build
+./autogen.sh
 %configure2_5x --disable-static --enable-plugin
 %make
 
