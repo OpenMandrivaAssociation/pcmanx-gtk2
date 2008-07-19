@@ -1,6 +1,6 @@
 %define version 0.3.7
 %define svnrel 416
-%define release %mkrel 4.%svnrel.2
+%define release %mkrel 4.%svnrel.3
 %define firefox_epoch %(rpm -q --queryformat %{EPOCH} mozilla-firefox)
 %define firefox_version %(rpm -q --queryformat %{VERSION} mozilla-firefox)
 
