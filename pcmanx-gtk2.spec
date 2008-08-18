@@ -1,8 +1,6 @@
-%define version 0.3.7
-%define svnrel 416
-%define release %mkrel 4.%svnrel.3
-%define firefox_epoch %(rpm -q --queryformat %{EPOCH} mozilla-firefox)
-%define firefox_version %(rpm -q --queryformat %{VERSION} mozilla-firefox)
+%define version 0.3.8
+%define release %mkrel 1
+%define xuldir %(pkg-config --variable=libdir libxul)
 
 Summary:   	User-friendly telnet client designed for BBS browsing
 Name:      	pcmanx-gtk2
@@ -10,15 +8,16 @@ Version:   	%{version}
 Release:   	%{release}
 License: 	GPLv2+
 Group:    	Networking/Other
-Source0:	http://pcmanx.csie.net/release/%{name}-r%{svnrel}.tar.bz2
+Source0:	http://pcmanx.csie.net/release/%{name}-%{version}.tar.bz2
 Patch0:		pcmanx-gtk2-0.3.7-fix-underlink.patch
+Patch1:		pcmanx-gtk2-0.3.8-fix-xulrunner-include.pach
 Url:       	http://pcmanx.csie.net/
 BuildRoot:	%{_tmppath}/%{name}-%{version}-%{release}-root
 BuildRequires:	gtk2-devel desktop-file-utils
 BuildRequires:	X11-devel
 BuildRequires:	intltool gettext-devel
 BuildRequires:	ImageMagick
-BuildRequires:	mozilla-firefox-devel
+BuildRequires:	xulrunner-devel
 Provides:	pcmanx = %{version}-%{release}
 Obsoletes:	pcmanx-pure-gtk2
 
@@ -32,15 +31,16 @@ browsing with the ability to process double-byte characters.
 %package -n mozilla-firefox-ext-pcmanx
 Group:		Networking/Other
 Summary:	pcmanx-gtk2 Mozillia Firefox plugin
-Requires:	mozilla-firefox = %{firefox_epoch}:%{firefox_version}
+Requires:	mozilla-firefox >= 0:3.0.0
 Requires:	%name = %version
 
 %description -n mozilla-firefox-ext-pcmanx
 This package contains pcmanx-gtk2 plugin for Mozilla Firefox.
 
 %prep
-%setup -q -n %name
+%setup -q -n %name-%version
 %patch0 -p0
+%patch1 -p0 -b .xrul
 
 %build
 ./autogen.sh
@@ -48,6 +48,7 @@ This package contains pcmanx-gtk2 plugin for Mozilla Firefox.
 %make
 
 %install
+rm -fr %buildroot
 make install-strip DESTDIR=$RPM_BUILD_ROOT
 
 # icon
@@ -92,8 +93,8 @@ rm -f %buildroot%_libdir/{*.la,*.so}
 
 %files -n mozilla-firefox-ext-pcmanx
 %defattr(-,root,root)
-%{_libdir}/firefox-%{firefox_version}/components/*
-%{_libdir}/firefox-%{firefox_version}/plugins/*.so
+%{xuldir}/components/*
+%{xuldir}/plugins/*.so
 
 %clean
 rm -rf %{buildroot}
