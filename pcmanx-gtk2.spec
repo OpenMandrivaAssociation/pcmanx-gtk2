@@ -16,7 +16,7 @@ BuildRoot:	%{_tmppath}/%{name}-%{version}-%{release}-root
 BuildRequires:	gtk2-devel desktop-file-utils
 BuildRequires:	X11-devel
 BuildRequires:	intltool gettext-devel
-BuildRequires:	ImageMagick
+BuildRequires:	imagemagick
 BuildRequires:	xulrunner-devel
 Provides:	pcmanx = %{version}-%{release}
 Obsoletes:	pcmanx-pure-gtk2
