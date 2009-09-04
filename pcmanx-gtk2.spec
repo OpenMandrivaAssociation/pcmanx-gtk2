@@ -1,5 +1,5 @@
 %define version 0.3.8
-%define release %mkrel 1
+%define release %mkrel 2
 %define xuldir %(pkg-config --variable=libdir libxul)
 
 Summary:   	User-friendly telnet client designed for BBS browsing
