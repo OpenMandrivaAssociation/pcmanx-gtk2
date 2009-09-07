@@ -1,6 +1,5 @@
-%define version 0.3.8
-%define release %mkrel 2
-%define xuldir %(pkg-config --variable=libdir libxul)
+%define version 0.3.9
+%define release %mkrel 1
 
 Summary:   	User-friendly telnet client designed for BBS browsing
 Name:      	pcmanx-gtk2
@@ -8,16 +7,13 @@ Version:   	%{version}
 Release:   	%{release}
 License: 	GPLv2+
 Group:    	Networking/Other
-Source0:	http://pcmanx.csie.net/release/%{name}-%{version}.tar.bz2
-Patch0:		pcmanx-gtk2-0.3.7-fix-underlink.patch
-Patch1:		pcmanx-gtk2-0.3.8-fix-xulrunner-include.pach
-Url:       	http://pcmanx.csie.net/
+Source0:	http://pcmanx-gtk2.googlecode.com/svn/website/release/%{name}-%{version}.tar.bz2
+Url:       	http://code.google.com/p/pcmanx-gtk2/
 BuildRoot:	%{_tmppath}/%{name}-%{version}-%{release}-root
 BuildRequires:	gtk2-devel desktop-file-utils
 BuildRequires:	X11-devel
 BuildRequires:	intltool gettext-devel
 BuildRequires:	imagemagick
-BuildRequires:	xulrunner-devel
 Provides:	pcmanx = %{version}-%{release}
 Obsoletes:	pcmanx-pure-gtk2
 
@@ -28,28 +24,16 @@ client formerly designed for MS Windows only.
 It aimed to be an easy-to-use yet full-featured telnet client facilitating BBS
 browsing with the ability to process double-byte characters.
 
-%package -n mozilla-firefox-ext-pcmanx
-Group:		Networking/Other
-Summary:	pcmanx-gtk2 Mozillia Firefox plugin
-Requires:	mozilla-firefox >= 0:3.0.0
-Requires:	%name = %version
-
-%description -n mozilla-firefox-ext-pcmanx
-This package contains pcmanx-gtk2 plugin for Mozilla Firefox.
-
 %prep
 %setup -q -n %name-%version
-%patch0 -p0
-%patch1 -p0 -b .xrul
 
 %build
-./autogen.sh
-%configure2_5x --disable-static --enable-plugin
+%configure2_5x --disable-static --disable-plugin
 %make
 
 %install
 rm -fr %buildroot
-make install-strip DESTDIR=$RPM_BUILD_ROOT
+%makeinstall_std
 
 # icon
 mkdir -p $RPM_BUILD_ROOT{%{_iconsdir},%{_liconsdir},%{_miconsdir}}
@@ -90,11 +74,6 @@ rm -f %buildroot%_libdir/{*.la,*.so}
 %{_datadir}/pcmanx
 %{_datadir}/pixmaps/pcmanx.png
 %{_datadir}/applications/*.desktop
-
-%files -n mozilla-firefox-ext-pcmanx
-%defattr(-,root,root)
-%{xuldir}/components/*
-%{xuldir}/plugins/*.so
 
 %clean
 rm -rf %{buildroot}
