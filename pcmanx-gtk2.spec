@@ -11,7 +11,8 @@ Source0:	http://pcmanx-gtk2.googlecode.com/svn/website/release/%{name}-%{version
 Url:       	http://code.google.com/p/pcmanx-gtk2/
 BuildRoot:	%{_tmppath}/%{name}-%{version}-%{release}-root
 BuildRequires:	gtk2-devel desktop-file-utils
-BuildRequires:	X11-devel
+BuildRequires:	libx11-devel libxft-devel
+BuildRequires:	freetype2-devel fontconfig-devel
 BuildRequires:	intltool gettext-devel
 BuildRequires:	imagemagick
 Provides:	pcmanx = %{version}-%{release}
@@ -28,7 +29,7 @@ browsing with the ability to process double-byte characters.
 %setup -q -n %name-%version
 
 %build
-%configure2_5x --disable-static --disable-plugin
+%configure2_5x --enable-static --disable-shared --disable-plugin
 %make
 
 %install
@@ -48,9 +49,7 @@ desktop-file-install --vendor="" \
 	--dir $RPM_BUILD_ROOT%{_datadir}/applications/ \
 	$RPM_BUILD_ROOT%{_datadir}/applications/*
 
-# fwang: remove devel files
-rm -f %buildroot%_libdir/{*.la,*.so}
-
+rm -f %buildroot%_libdir/*
 %find_lang pcmanx
 
 %if %mdkversion < 200900
@@ -67,7 +66,6 @@ rm -f %buildroot%_libdir/{*.la,*.so}
 %defattr(-,root,root)
 %doc AUTHORS COPYING ChangeLog README
 %{_bindir}/pcmanx
-%{_libdir}/libpcmanx_core.so.*
 %{_iconsdir}/pcmanx.png
 %{_liconsdir}/pcmanx.png
 %{_miconsdir}/pcmanx.png
