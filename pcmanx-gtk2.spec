@@ -1,5 +1,5 @@
 %define version 0.3.9
-%define release %mkrel 1
+%define release %mkrel 2
 
 Summary:   	User-friendly telnet client designed for BBS browsing
 Name:      	pcmanx-gtk2
