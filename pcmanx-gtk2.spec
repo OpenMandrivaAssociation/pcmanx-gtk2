@@ -10,6 +10,11 @@ Group:    	Networking/Other
 Source0:	http://pcmanx-gtk2.googlecode.com/svn/website/release/%{name}-%{version}.tar.bz2
 Url:       	https://code.google.com/p/pcmanx-gtk2/
 BuildRoot:	%{_tmppath}/%{name}-%{version}-%{release}-root
+BuildRequires:	autoconf
+BuildRequires:	automake
+BuildRequires:	libtool-base
+BuildRequires:	slibtool
+BuildRequires:	make
 BuildRequires:	gtk2-devel desktop-file-utils
 BuildRequires:	libx11-devel libxft-devel
 BuildRequires:	freetype2-devel fontconfig-devel
